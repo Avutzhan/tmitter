@@ -13,3 +13,7 @@ class Tweet extends Model
         return $this->belongsTo(User::class);
     }
 }
+
+//tinker
+//simulate creating tweet
+//factory('App\Tweet')->create(['user_id' => 5]);
