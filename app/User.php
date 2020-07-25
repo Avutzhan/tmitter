@@ -39,16 +39,12 @@ class User extends Authenticatable
 
     public function getAvatarAttribute()
     {
-        return "https://i.pravatar.cc/40?u=" . $this->email;
+        return "https://i.pravatar.cc/200?u=" . $this->email;
     }
 
     public function timeline()
     {
-        //include all of users tweets
-        //as well as the tweets of everyone
-        //they follows.... in descending order by date
         $ids = $this->follows()->pluck('id');
-//        $ids->push($this->id); we can push or add query
 
         return Tweet::whereIn('user_id', $ids)->orWhere('user_id', $this->id)->latest()->get();
     }
@@ -67,27 +63,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
     }
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }
 
-//tinker
-//App\User::find(1)->follows;
-//test follow()
-// App\User::find(2);
-//$john =  App\User::find(1);
-//App\User::find(2)->follow($john);
-//create one more user
-//factory('App\User')->create();
-//$user = factory('App\User')->create();
-//$john->follow($user);
-//$john->follows;
-
-
-//tinker
-// App\User::first();
-//App\User::first()->tweets;
-
-
-//tinker
-//$john = App\User::first();
-//$john->follows;
-// $john->follows->pluck('id');
