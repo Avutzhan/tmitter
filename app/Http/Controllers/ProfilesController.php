@@ -11,4 +11,18 @@ class ProfilesController extends Controller
     {
         return view('profiles.show', compact('user'));
     }
+
+    public function edit(User $user)
+    {
+//        3 method in controller and in web routes
+//        $this->authorize('edit', $user);
+//        2 method
+//        abort_if($user->isNot(current_user()), 404);
+//        1 method
+//        if ($user->isNot(current_user())) {
+//            abort(404);
+//        }
+
+        return view('profiles.edit', compact('user'));
+    }
 }
