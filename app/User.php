@@ -37,7 +37,14 @@ class User extends Authenticatable
 
     public function getAvatarAttribute($value)
     {
-        return asset('storage/' . $value);
+        $avatar = $value ? $value : 'default-avatar.png';
+        return asset('storage/' . $avatar );
+    }
+
+    //$user->password = 'foobar
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
     public function timeline()
@@ -61,4 +68,12 @@ class User extends Authenticatable
 
 
 }
+
+//tinker
+//factory('App\User', 10)->create(); make users
+//make tweets
+//$users = App\User::all();
+//$users = $users->skip(1); skip myself
+//$users->each(function ($user) { factory('App\Tweet', 10 )->create(['user_id' => $user->id]); });
+
 
